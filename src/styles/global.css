@@ -1,0 +1,79 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html{
+  font-family: 'Montserrat', sans-serif;
+}
+
+li {
+  outline: none;
+  padding: 0;
+}
+
+button,
+input {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+img {
+  object-fit: cover;
+}
+
+.link_class {
+  text-decoration: none;
+  color: inherit;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  background: white;
+
+}
+
+.App .main {
+  max-width: 80vw;
+  width: 100%;
+  margin: auto;
+  background-color: #eee;
+}
+.icon_white{
+  color:white;
+}
+.icon_silver{
+  color:silver;
+}
+.icon_green{
+  color:green;
+}
+.icon_red{
+  color:red;
+}
+.icon_dark{
+  color:gray;
+}
+
+/* Set Responsive */
+
+@media screen and (max-width:768px) {
+  .App .main {
+    max-width: 95vw;
+    width: 100%;
+   
+  }
+}
+
+
+/* Imports */
+
+@import url("./draft.css");
+@import url("./home.css");
+@import url("./register.css");
+@import url("./login.css");
+@import url("./loading.css");

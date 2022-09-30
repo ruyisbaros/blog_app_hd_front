@@ -14,10 +14,12 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    about: "",
+    roles: ["User"],
+    imageId: "pw4gq42vstslcyqzi81o",
     cf_password: "",
-    gender: "male",
   });
-  const { email, password, name, cf_password } = user;
+  const { email, password, name, about, cf_password } = user;
 
   const handleInput = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -52,24 +54,34 @@ const Register = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email Address</label>
+          <label htmlFor="email">Email Address</label>
           <input
             type="email"
             name="email"
             className="form-control"
-            id="exampleInputEmail1"
+            id="email"
             aria-describedby="emailHelp"
             placeholder="Enter email"
             required
             value={email}
             onChange={handleInput}
-            style={{
-              backgroundColor: errText.split(" ").includes("email") && "red",
-            }}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
           </small>
+        </div>
+        <div className="form-group">
+          <label htmlFor="about">About :</label>
+          <textarea
+            type="text"
+            name="about"
+            className="text_area"
+            id="about"
+            aria-describedby="emailHelp"
+            placeholder="Tell us about yourself..."
+            value={about}
+            onChange={handleInput}
+          ></textarea>
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Password</label>
@@ -114,16 +126,7 @@ const Register = () => {
           </div>
         </div>
 
-        <button
-          style={{
-            backgroundColor:
-              errText.split(" ").includes("email", "username", "passwords") &&
-              "red",
-          }}
-          type="submit"
-          className="btn w-50"
-          disabled={email && password && name && cf_password ? false : true}
-        >
+        <button type="submit" className="btn btn-primary w-50">
           Register
         </button>
 

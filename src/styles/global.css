@@ -11,7 +11,13 @@ li {
   list-style: none;
   padding: 0;
 }
-
+.text_area{
+  resize: none;
+  height: 150px;
+  width: 100%;
+  padding: 10px;
+}
+.btn,
 button,
 input {
   cursor: pointer;
@@ -40,6 +46,7 @@ img {
 .App .main {
   max-width: 80vw;
   width: 100%;
+  max-height: 100vh;
   margin: auto;
   /* background-color: #eee; */
 }

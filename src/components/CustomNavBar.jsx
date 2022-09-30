@@ -47,9 +47,15 @@ const CustomNavBar = ({ token }) => {
                 More
               </span>
               <div className="dropdown-menu">
-                <span className="dropdown-item">Logout</span>
-                <span className="dropdown-item">Logout</span>
-                <span className="dropdown-item">Logout</span>
+                <Link to="/services" className="link_class">
+                  <span className="dropdown-item">Services</span>
+                </Link>
+                <Link to="/contact" className="link_class">
+                  <span className="dropdown-item">Contact Us</span>
+                </Link>
+                <Link to="/linkedin" className="link_class">
+                  <span className="dropdown-item">Linkedin</span>
+                </Link>
               </div>
             </li>
           </ul>

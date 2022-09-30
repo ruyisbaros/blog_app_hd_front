@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DraftPage from "./components/DraftPage";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -24,6 +23,7 @@ function App() {
           <NavBar token={token} />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
 

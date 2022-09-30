@@ -71,19 +71,11 @@ const Login = () => {
           </div>
         </div>
 
-        <button
-          style={{
-            backgroundColor:
-              errText.split(" ").includes("user", "wrong") && "red",
-          }}
-          type="submit"
-          className="btn btn-dark w-50"
-          disabled={email && password ? false : true}
-        >
+        <button type="submit" className="btn btn-primary w-50">
           Login
         </button>
 
-        <p className="my-3">
+        <p className="my-4">
           Don't you have an account? <Link to="/register">Register Now</Link>
         </p>
       </form>

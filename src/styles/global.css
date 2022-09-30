@@ -8,7 +8,7 @@ html{
 }
 
 li {
-  outline: none;
+  list-style: none;
   padding: 0;
 }
 
@@ -41,7 +41,7 @@ img {
   max-width: 80vw;
   width: 100%;
   margin: auto;
-  background-color: #eee;
+  /* background-color: #eee; */
 }
 .icon_white{
   color:white;
@@ -77,3 +77,4 @@ img {
 @import url("./register.css");
 @import url("./login.css");
 @import url("./loading.css");
+@import url("./navbar.css");

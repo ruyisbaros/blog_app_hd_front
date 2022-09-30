@@ -10,15 +10,18 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import { useSelector } from "react-redux";
 import Loading from "./utils/Loading";
+import NavBar from "./components/CustomNavBar";
 
 function App() {
-  const { authFetching } = useSelector((store) => store.currentUser);
+  const { authFetching, token } = useSelector((store) => store.currentUser);
+
   return (
     <BrowserRouter>
       <ToastContainer position="bottom-center" limit={1} />
       {authFetching && <Loading />}
       <div className="App">
         <div className="main">
+          <NavBar token={token} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />

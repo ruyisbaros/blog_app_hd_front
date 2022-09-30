@@ -1,0 +1,44 @@
+.auth_page{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fdfdfd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .auth_page form{
+        background-color: #fff;
+        max-width: 400px;
+        width: 100%;
+        border:1px solid #ddd;
+        padding: 50px 25px;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .auth_page .btn{
+        display: block; 
+        margin: 10px auto;
+        background-color: teal;
+        color: #fff;
+        font-weight: bold;
+    }
+    
+    .auth_page .btn:disabled{
+        background-color: red;
+    }
+    
+    .auth_page form .pass{
+    position: relative;
+    }
+    
+    .auth_page form .pass small{
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        opacity: 0.7;
+    }

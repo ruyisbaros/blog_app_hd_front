@@ -1,6 +1,7 @@
 .nav_box{
 position: sticky;
 top: 10px;
+
 }
 .nav_box .nav_custom{
     width: 100%;
@@ -11,6 +12,7 @@ padding-right: 30px;
 .logged_user_info{
     display: flex;
     align-items: center;
+    margin-top: 5px;
 }
 .logged_user_image,.logo_image{
     width: 60px;

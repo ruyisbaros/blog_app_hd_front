@@ -58,7 +58,7 @@ const Register = () => {
         setPasswordsMatch(true);
         dispatch(loggingSuccess({ token: data[0], currentUser: data[1] }));
         /* localStorage.setItem("token", data[0]);
-        localStorage.setItem("currentUser", data[1]); */
+        localStorage.setItem("currentUser", JSON.stringify(data[1])); */
         toast.success("You have been registered successufully...");
         navigate("/home");
       } catch (error) {

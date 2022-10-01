@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,18 +7,16 @@ import avatar from "../images/default-user.png";
 
 const CustomNavBar = ({ token }) => {
   const navigate = useNavigate();
-  const { currentUser } = useSelector((store) => store.currentUser);
-  const [email, setEmail] = useState("");
-  const [profileImage, setProfileImage] = useState("");
 
-  useEffect(() => {
-    if (localStorage.getItem("email")) {
-      setEmail(localStorage.getItem("email"));
-    }
-    if (localStorage.getItem("profileImage")) {
-      setProfileImage(localStorage.getItem("profileImage"));
-    }
-  }, []);
+  //const { currentUser } = useSelector((store) => store.currentUser);
+  const [loggedInUser, setLoggedInUser] = useState(
+    JSON.parse(localStorage.getItem("currentUser"))
+  );
+  const { id, name, email, about, image } = loggedInUser;
+  const { imageUrl } = image;
+  const [profileImage, setProfileImage] = useState(imageUrl);
+
+  console.log(loggedInUser);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -82,11 +80,13 @@ const CustomNavBar = ({ token }) => {
         {token ? (
           <ul className="logged_user_info">
             <li className="nav-item">
-              <img
-                className="logged_user_image"
-                src={profileImage ? profileImage : avatar}
-                alt=""
-              />
+              <Link to={`/user/${id}`} className="link_class">
+                <img
+                  className="logged_user_image"
+                  src={profileImage ? profileImage : avatar}
+                  alt=""
+                />
+              </Link>
             </li>
             <li className="nav-item">
               <span className="logged_user_email">{email} </span>

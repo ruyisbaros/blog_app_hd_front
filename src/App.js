@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,8 +11,10 @@ import { useSelector } from "react-redux";
 import Loading from "./utils/Loading";
 import NavBar from "./components/CustomNavBar";
 import { useEffect, useState } from "react";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
+  //const navigate = useNavigate();
   const { authFetching } = useSelector((store) => store.currentUser);
 
   const [token, setToken] = useState("");
@@ -21,7 +23,7 @@ function App() {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
     }
-  }, []);
+  }, [token]);
 
   return (
     <BrowserRouter>
@@ -35,6 +37,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/user/:id" element={<UserDashboard />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

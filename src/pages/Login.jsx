@@ -33,13 +33,11 @@ const Login = () => {
       });
       console.log(data);
       dispatch(loggingFinish());
-      localStorage.setItem("token", data.jwtToken);
-      localStorage.setItem("email", data.email);
-
-      localStorage.setItem("profileImage", data.profileImage.imageUrl);
-      localStorage.setItem("name", data.name);
+      localStorage.setItem("token", data[0]);
+      localStorage.setItem("currentUser", JSON.stringify(data[1]));
       toast.success("You logged in successufully");
       navigate("/");
+      window.location.reload();
     } catch (error) {
       dispatch(loggingFail());
       //console.log(error);

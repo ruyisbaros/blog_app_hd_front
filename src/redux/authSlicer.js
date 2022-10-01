@@ -19,7 +19,10 @@ const currentUserSlicer = createSlice({
       state.authFetching = false;
     },
     loggingSuccess: (state, action) => {
+      //console.log(action);
       state.authFetching = false;
+      state.token = action.payload.token;
+      state.currentUser = action.payload.currentUser;
     },
     loggingFail: (state) => {
       state.authFetching = false;

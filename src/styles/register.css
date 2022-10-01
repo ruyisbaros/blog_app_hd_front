@@ -1,0 +1,9 @@
+.email_box{
+    position: relative;
+}
+
+.email_box .warn_icon{
+    position: absolute;
+    top: 42px;
+    right: 5px;
+}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import blogImage from "../images/blogImage.png";
@@ -6,11 +7,29 @@ import avatar from "../images/default-user.png";
 
 const CustomNavBar = ({ token }) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("a@a.com");
+  const { currentUser } = useSelector((store) => store.currentUser);
+  const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
-  const [roles, setRoles] = useState([]);
 
-  const handleLogout = async () => {};
+  useEffect(() => {
+    if (localStorage.getItem("email")) {
+      setEmail(localStorage.getItem("email"));
+    }
+    if (localStorage.getItem("profileImage")) {
+      setProfileImage(localStorage.getItem("profileImage"));
+    }
+  }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    /* localStorage.removeItem("roles"); */
+    localStorage.removeItem("profileImage");
+    localStorage.removeItem("name");
+    navigate("/");
+    window.location.reload();
+  };
 
   return (
     <div className="nav_box">
@@ -77,7 +96,10 @@ const CustomNavBar = ({ token }) => {
                 data-toggle="dropdown"
                 className="logged_user_email dropdown-toggle"
               ></span>
-              <div className="dropdown-menu">
+              <div
+                style={{ marginLeft: "-100px", marginTop: "20px" }}
+                className="dropdown-menu drop_ui"
+              >
                 <span onClick={handleLogout} className="dropdown-item">
                   Logout
                 </span>

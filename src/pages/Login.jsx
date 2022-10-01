@@ -1,12 +1,20 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import {
+  loggingFail,
+  loggingFinish,
+  loggingStart,
+  loggingSuccess,
+} from "../redux/authSlicer";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [passType, setPassType] = useState(false);
-  const [errText, setErrText] = useState("");
+  //const [errText, setErrText] = useState("");
   const [user, setUser] = useState({ email: "", password: "" });
 
   const { email, password } = user;
@@ -17,6 +25,27 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(loggingStart());
+    try {
+      const { data } = await axios.post("/api/v1/auth/login", {
+        email,
+        password,
+      });
+      console.log(data);
+      dispatch(loggingFinish());
+      localStorage.setItem("token", data.jwtToken);
+      localStorage.setItem("email", data.email);
+
+      localStorage.setItem("profileImage", data.profileImage.imageUrl);
+      localStorage.setItem("name", data.name);
+      toast.success("You logged in successufully");
+      navigate("/");
+    } catch (error) {
+      dispatch(loggingFail());
+      //console.log(error);
+      //console.log(error.response.data.message);
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
@@ -41,9 +70,6 @@ const Login = () => {
             required
             value={email}
             onChange={handleInput}
-            style={{
-              backgroundColor: errText.split(" ").includes("user") && "red",
-            }}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.

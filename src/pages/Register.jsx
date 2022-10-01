@@ -8,7 +8,8 @@ import { loggingFail, loggingStart, loggingSuccess } from "../redux/authSlicer";
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token } = useSelector((store) => store.currentUser);
+  const { token, currentUser } = useSelector((store) => store.currentUser);
+  console.log(token + " and " + currentUser.name);
 
   const [passType, setPassType] = useState(false);
   const [confPassType, setConfPassType] = useState(false);
@@ -34,11 +35,6 @@ const Register = () => {
     }
   }, [cf_password]);
 
-  const [error, setError] = useState({
-    errors: {},
-    isError: false,
-  });
-
   const handleInput = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -60,22 +56,26 @@ const Register = () => {
         });
         console.log(data);
         setPasswordsMatch(true);
-        dispatch(loggingSuccess());
+        dispatch(loggingSuccess({ token: data[0], currentUser: data[1] }));
+        /* localStorage.setItem("token", data[0]);
+        localStorage.setItem("currentUser", data[1]); */
         toast.success("You have been registered successufully...");
+        navigate("/home");
       } catch (error) {
         dispatch(loggingFail());
         //console.log(error);
         //console.log(error.response.data.message);
         toast.error(error.response.data.message);
         setErrText(error.response.data.message);
-        //console.log(errText.split(" "));
+        //console.log(errText);
+        //console.log(errText.split(" ").includes("email:"));
       }
     } else {
       dispatch(loggingFail());
       toast.error("Passwords don't match!");
     }
   };
-
+  console.log(errText);
   return (
     <div className="auth_page">
       <form onSubmit={handleSubmit}>
@@ -100,12 +100,15 @@ const Register = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group email_box">
           <label htmlFor="email">Email Address</label>
           <input
-            style={{
-              backgroundColor: errText.split(" ").includes("email:") && "red",
-            }}
+            /* style={{
+              background:
+                errText && errText.split(" ").includes("email:")
+                  ? "red"
+                  : "inherit",
+            }}*/
             type="email"
             name="email"
             className="form-control"
@@ -115,10 +118,15 @@ const Register = () => {
             required
             value={email}
             onChange={handleInput}
+            //onInvalid={errText.split(" ").includes("email:")}
           />
+
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
           </small>
+          {errText && errText.split(" ").includes("email:") && (
+            <i className="fa-solid fa-circle-exclamation icon_red warn_icon"></i>
+          )}
         </div>
         <div className="form-group">
           <label htmlFor="about">About :</label>
@@ -162,7 +170,7 @@ const Register = () => {
                 backgroundColor:
                   password && cf_password
                     ? !passwordsMatch
-                      ? "red"
+                      ? "orange"
                       : "green"
                     : "inherit",
               }}

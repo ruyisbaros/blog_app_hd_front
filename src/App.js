@@ -10,9 +10,18 @@ import NotFound from "./pages/NotFound";
 import { useSelector } from "react-redux";
 import Loading from "./utils/Loading";
 import NavBar from "./components/CustomNavBar";
+import { useEffect, useState } from "react";
 
 function App() {
-  const { authFetching, token } = useSelector((store) => store.currentUser);
+  const { authFetching } = useSelector((store) => store.currentUser);
+
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+    }
+  }, []);
 
   return (
     <BrowserRouter>

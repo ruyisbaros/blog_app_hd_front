@@ -23,13 +23,14 @@ padding-right: 30px;
     margin-left: 10px;
 }
 
-.dropdown-menu{
+.drop_ui{
     margin-top: 20px;
-    margin-left: -100px;
+    margin-left: -200px;
 }
 
 .dropdown-item{
-    cursor: pointer
+    cursor: pointer;
+   
 }
 .more_drop{
     cursor: pointer;

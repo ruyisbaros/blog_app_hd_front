@@ -3,12 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  loggingFail,
-  loggingFinish,
-  loggingStart,
-  loggingSuccess,
-} from "../redux/authSlicer";
+import { fetchFinish, fetchStart, loggingFail } from "../redux/authSlicer";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,14 +20,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loggingStart());
+    dispatch(fetchStart());
     try {
       const { data } = await axios.post("/api/v1/auth/login", {
         email,
         password,
       });
       console.log(data);
-      dispatch(loggingFinish());
+      dispatch(fetchFinish());
       localStorage.setItem("token", data[0]);
       localStorage.setItem("currentUser", JSON.stringify(data[1]));
       toast.success("You logged in successufully");

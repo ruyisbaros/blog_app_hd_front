@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { loggingFail, loggingStart, loggingSuccess } from "../redux/authSlicer";
+import { fetchStart, loggingFail, loggingSuccess } from "../redux/authSlicer";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Register = () => {
 
     if (password === cf_password) {
       try {
-        dispatch(loggingStart());
+        dispatch(fetchStart());
         const { data } = await axios.post("/api/v1/auth/register", {
           email,
           password,

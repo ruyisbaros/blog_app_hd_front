@@ -52,7 +52,7 @@ const CustomNavBar = ({ token }) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/blogs" className="link_class nav-link">
+              <Link to="/posts" className="link_class nav-link">
                 Blogs
               </Link>
             </li>

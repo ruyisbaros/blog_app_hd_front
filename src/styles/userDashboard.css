@@ -1,3 +1,50 @@
 .user_dashboard{
     margin-top: 10px;
 }
+.surround{
+    padding: 30px;
+    padding-top: 40px;
+    width: 60%;
+    height: 50vh;
+    margin: 20px auto;
+    display: flex;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0px 2px  1px  rgba(0,0,0,0.4);
+}
+.surround_left,.surround_right{
+    flex: 1;
+}
+.surround_left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   gap: 15px;
+}
+.sorround_left-image .user_image{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.4);
+    padding: 5px;
+    transition: all 0.3s;
+    cursor: pointer;
+} 
+.sorround_left-image .user_image:hover{
+    padding: 0;
+}
+.user_info{
+    margin-bottom: 10px;
+}
+.user_info span{
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.surround_right .my_posts{
+    margin-left: 20px;
+    width: 30%;
+    margin-top: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}

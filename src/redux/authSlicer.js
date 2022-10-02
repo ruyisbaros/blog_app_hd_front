@@ -12,10 +12,10 @@ const currentUserSlicer = createSlice({
   name: "currentUser",
   initialState,
   reducers: {
-    loggingStart: (state) => {
+    fetchStart: (state) => {
       state.authFetching = true;
     },
-    loggingFinish: (state) => {
+    fetchFinish: (state) => {
       state.authFetching = false;
     },
     loggingSuccess: (state, action) => {
@@ -30,6 +30,6 @@ const currentUserSlicer = createSlice({
   },
 });
 
-export const { loggingStart, loggingFinish, loggingFail, loggingSuccess } =
+export const { fetchStart, fetchFinish, loggingFail, loggingSuccess } =
   currentUserSlicer.actions;
 export default currentUserSlicer.reducer;

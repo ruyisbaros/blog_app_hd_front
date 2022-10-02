@@ -12,19 +12,26 @@ import Loading from "./utils/Loading";
 import NavBar from "./components/CustomNavBar";
 import { useEffect, useState } from "react";
 import UserDashboard from "./pages/UserDashboard";
+import Posts from "./components/Posts";
+import AddPost from "./components/AddPost";
+import EditPost from "./components/EditPost";
 
 function App() {
   //const navigate = useNavigate();
   const { authFetching } = useSelector((store) => store.currentUser);
 
   const [token, setToken] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
     }
+    if (localStorage.getItem("currentUser")) {
+      setLoggedInUser(JSON.parse(localStorage.getItem("currentUser")));
+    }
   }, [token]);
-
+  console.log(token);
   return (
     <BrowserRouter>
       <ToastContainer position="bottom-center" limit={1} />
@@ -37,7 +44,13 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/user/:id" element={<UserDashboard />} />
+            <Route path="/user/:id" element={<UserDashboard token={token} />} />
+            <Route path="/posts" element={<Posts />} />
+            <Route
+              path="/add_post"
+              element={<AddPost loggedInUser={loggedInUser} />}
+            />
+            <Route path="/edit_post/:id" element={<EditPost />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

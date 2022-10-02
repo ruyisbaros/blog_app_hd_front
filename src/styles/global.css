@@ -86,3 +86,6 @@ img {
 @import url("./loading.css");
 @import url("./navbar.css");
 @import url("./userDashboard.css");
+@import url("./posts.css");
+@import url("./editPost.css");
+@import url("./addPost.css");

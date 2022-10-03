@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fetchFinish, fetchStart } from "../redux/authSlicer";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import moment from "moment";
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Posts = () => {
   const [keyword, setKeyword] = useState("");
   const [totalPages, setTotalPages] = useState();
   const [pageNumber, setpageNumber] = useState(1);
-  const [pageSize, setpageSize] = useState(5);
+  const [pageSize, setpageSize] = useState(3);
   const [arrow, setArrow] = useState(true);
   const [sortDir, setSortDir] = useState("asc");
   const [sortField, setSortField] = useState("id");
@@ -30,6 +31,10 @@ const Posts = () => {
       setToken(localStorage.getItem("token"));
     }
   }, [token]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pageNumber]);
 
   const fetchPosts = async () => {
     dispatch(fetchStart());
@@ -59,13 +64,42 @@ const Posts = () => {
   console.log(posts);
 
   return (
-    <div className="posts_container">
+    <div className="posts_main_container">
       {pageEmpty ? (
         <div className="no_posts text-center">
           No Users match with your field!..
         </div>
       ) : (
-        <div>Posts</div>
+        posts?.map((post) => (
+          <div key={post.id} className="posts_container">
+            <div className="post_owner">
+              <Link to={`/user/${post.user.id}`} className="link_class">
+                <img
+                  className="post_owner-img"
+                  src={post.user.image.imageUrl}
+                  alt=""
+                />
+              </Link>
+              <div className="post_owner-info">
+                <p>
+                  {post.user.name}.{" "}
+                  <span>{moment(post.createdDate).fromNow()}</span>
+                </p>
+                <h3>{post.user.about}</h3>
+              </div>
+            </div>
+            <div className="post_content_box">
+              <div className="post_content-header">
+                <h3 className="post_title">{post.title}</h3>
+                <p className="post_content">{post.content}</p>
+              </div>
+              <div className="post_content-body">
+                <img src={post.postImage.imageUrl} alt="" />
+              </div>
+              <div className="post_content-footer">like and comments here</div>
+            </div>
+          </div>
+        ))
       )}
 
       {!pageEmpty && (

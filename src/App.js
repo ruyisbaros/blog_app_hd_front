@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,9 +33,6 @@ function App() {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
     }
-    if (localStorage.getItem("currentUser")) {
-      setLoggedInUser(JSON.parse(localStorage.getItem("currentUser")));
-    }
   }, [token]);
   console.log(token);
   return (
@@ -40,7 +43,10 @@ function App() {
         <div className="main">
           <NavBar token={token} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={token ? <Navigate to="/posts" /> : <Home />}
+            />
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
@@ -48,7 +54,7 @@ function App() {
             <Route path="/posts" element={<Posts />} />
             <Route
               path="/add_post"
-              element={<AddPost loggedInUser={loggedInUser} />}
+              element={<AddPost loggedInUser={loggedInUser} token={token} />}
             />
             <Route path="/edit_post/:id" element={<EditPost />} />
 

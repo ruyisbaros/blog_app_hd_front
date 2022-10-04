@@ -77,6 +77,14 @@ const Posts = () => {
 
   return (
     <div className="posts_main_container">
+      <div className="search_box">
+        <label htmlFor="keyword">Search By Keyword:</label>
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+      </div>
       {pageEmpty ? (
         <div className="no_posts text-center">
           No Users match with your field!..
@@ -92,7 +100,7 @@ const Posts = () => {
         ))
       )}
 
-      {!pageEmpty && (
+      {!pageEmpty && totalPages > 1 && (
         <div className="page_actions">
           <div className="page_selections">
             <label htmlFor="">Page Size:</label>

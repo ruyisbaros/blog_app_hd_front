@@ -9,6 +9,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Post = ({ post, loggedInUser, token }) => {
   //.filter((cmt) => cmt.post.id === post.id)
@@ -33,33 +34,32 @@ const Post = ({ post, loggedInUser, token }) => {
 
   const submitComment = async (e) => {
     setIsCommented(true);
-    const { data } = await axios.post(
-      "/api/v1/comments/create",
-      { content: makeComment, userId: loggedInUser.id, postId: post.id },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setIsCommented(false);
-    console.log(data);
-    setMakeComment("");
-    setShowButtons(false);
+    if (makeComment !== "") {
+      try {
+        const { data } = await axios.post(
+          "/api/v1/comments/create",
+          { content: makeComment, userId: loggedInUser.id, postId: post.id },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setIsCommented(false);
+        console.log(data);
+        setMakeComment("");
+        setShowButtons(false);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    } else {
+      toast.error("Please text your comments");
+    }
+
     //window.location.reload();
   };
 
   useEffect(() => {
     fetchPostOwnComments();
   }, [isCommented]);
+
   console.log(ownComments);
-  useEffect(
-    (e) => {
-      if (makeComment) {
-        setShowButtons(true);
-      } else {
-        setShowButtons(false);
-      }
-    },
-    [makeComment]
-  );
-  //console.log(showButtons);
 
   return (
     <div key={post.id} className="posts_container">
@@ -118,9 +118,11 @@ const Post = ({ post, loggedInUser, token }) => {
                 />
                 <input
                   type="text"
+                  required
                   placeholder="Add comment..."
                   value={makeComment}
                   onChange={(e) => setMakeComment(e.target.value)}
+                  onMouseDown={() => setShowButtons(true)}
                 />
               </div>
               {showButtons && (

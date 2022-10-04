@@ -1,0 +1,45 @@
+.comment_container{
+    
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.comment_container .each_comment{
+    display: flex;
+    gap:20px;
+    margin-bottom: 20px;
+}
+
+.each_comment-info .info-name{
+    text-transform: capitalize;
+    font-weight: bold;
+}
+.each_comment-info .info-name span{
+    font-weight: 200;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.each_comment-info .info-content{
+    margin-top: -15px;
+    font-size: 18px;
+}
+
+.each_comment> img{
+width: 30px;
+height: 30px;
+border-radius: 50%;
+}
+
+.each_comment-info-icons{
+    display: flex;
+    gap:20px;
+}
+
+.each_comment-info-replay{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color:rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    border:none;
+}

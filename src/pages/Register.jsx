@@ -60,7 +60,7 @@ const Register = () => {
         localStorage.setItem("token", data[0]);
         localStorage.setItem("currentUser", JSON.stringify(data[1]));
         toast.success("You have been registered successufully...");
-        navigate("/home");
+        navigate("/");
       } catch (error) {
         dispatch(loggingFail());
         //console.log(error);

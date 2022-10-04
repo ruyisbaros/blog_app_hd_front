@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { fetchFinish, fetchStart } from "../redux/authSlicer";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import SearchPosts from "./SearchPosts";
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ const Posts = () => {
   const [token, setToken] = useState("");
   const [loggedInUser, setLoggedInUser] = useState();
 
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
       setLoggedInUser(JSON.parse(localStorage.getItem("currentUser")));
@@ -37,6 +41,19 @@ const Posts = () => {
     }
   }, [token]);
   console.log(loggedInUser);
+
+  const fetchCategories = async () => {
+    const { data } = await axios.get("/api/v1/categories/all", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(data);
+    setCategories(data);
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, [token]);
+
+  console.log(categories);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -50,10 +67,9 @@ const Posts = () => {
 
   const fetchPosts = async () => {
     dispatch(fetchStart());
-
     try {
       const { data } = await axios.get(
-        `/api/v1/posts/all_paginated?pageSize=${pageSize}&pageNo=${pageNumber}&sortDir=${sortDir}&sortField=${sortField}&keyword=${keyword}`,
+        `/api/v1/posts/all_paginated?pageSize=${pageSize}&pageNo=${pageNumber}&sortDir=${sortDir}&sortField=${sortField}&keyword=${keyword}&category=${category}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       dispatch(fetchFinish());
@@ -71,20 +87,18 @@ const Posts = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, [pageNumber, pageSize, sortDir, arrow, keyword, token]);
+  }, [pageNumber, pageSize, sortDir, arrow, keyword, token, category]);
 
   console.log(posts);
+  console.log(category);
 
   return (
     <div className="posts_main_container">
-      <div className="search_box">
-        <label htmlFor="keyword">Search By Keyword:</label>
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => setKeyword(e.target.value)}
-        />
-      </div>
+      <SearchPosts
+        setKeyword={setKeyword}
+        setCategory={setCategory}
+        categories={categories}
+      />
       {pageEmpty ? (
         <div className="no_posts text-center">
           No Users match with your field!..

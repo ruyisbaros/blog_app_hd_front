@@ -80,6 +80,10 @@ const Post = ({ post, loggedInUser, token }) => {
       </div>
       <div className="post_content_box">
         <div className="post_content-header">
+          <h3 className="post_category_title">
+            <span>Category: </span>
+            {post.category.title}
+          </h3>
           <h3 className="post_title">{post.title}</h3>
           <p className="post_content">{post.content}</p>
         </div>
